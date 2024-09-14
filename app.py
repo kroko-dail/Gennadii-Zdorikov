@@ -7,9 +7,9 @@ import sqlite3
 from werkzeug.exceptions import HTTPException
 # imports for sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.orm import Mapped, mapped_column
-from sqlalchemy import String
+from sql_alchemy.orm import DeclarativeBase
+from sql_alchemy.orm import Mapped, mapped_column
+from sql_alchemy import String
 
 
 class Base(DeclarativeBase):
@@ -150,17 +150,17 @@ def delete_quote(quote_id: int):
     abort(404, f"Quote with id={quote_id} not found")
 
 
-# @app.route("/quotes/filter")
-# def filter_quotes():
+@app.route("/quotes/filter")
+def filter_quotes():
 #    """TODO: change to work with database."
-#    filtered_quotes = quotes.copy()
+    filtered_quotes = quotes.copy()
 #    # request.args хранит данные, полученные из query parameters
-#    for key, value in request.args.items():
-#       if key not in ("author", "rating"):
-#          return f"Invalid key {key}", HTTPStatus.BAD_REQUEST
-#       if key == "rating":
-#          value = int(value)
-#       filtered_quotes = [quote for quote in filtered_quotes if quote.get(key) == value]
+    for key, value in request.args.items():
+        if key not in ("author", "rating"):
+          return f"Invalid key {key}", HTTPStatus.BAD_REQUEST
+        if key == "rating":
+          value = int(value)
+        filtered_quotes = [quote for quote in filtered_quotes if quote.get(key) == value]
 #       # ======== the same as 136 ==========
 #       # res_quotes = []
 #       # for quote in filtered_quotes:
@@ -168,7 +168,7 @@ def delete_quote(quote_id: int):
 #       #       res_quotes.append(quote)
 #       # filtered_quotes = res_quotes.copy() # Делаю независимую копию списка
 #       # ===================================
-#    return filtered_quotes
+    return filtered_quotes
 
 
 if __name__ == "__main__":
